@@ -1,7 +1,4 @@
 [book]
-title = "procesandsafe"
+title = "proces and safety"
 authors = ["Menno Wentink"]
 language = "en"
-
-[preprocessor.plantuml]
-plantuml-cmd="https://www.plantuml.com/plantuml"
