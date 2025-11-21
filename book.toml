@@ -1,1 +1,7 @@
+[book]
+title = "procesandsafe"
+authors = ["Menno Wentink"]
+language = "en"
 
+[preprocessor.plantuml]
+plantuml-cmd="https://www.plantuml.com/plantuml"
