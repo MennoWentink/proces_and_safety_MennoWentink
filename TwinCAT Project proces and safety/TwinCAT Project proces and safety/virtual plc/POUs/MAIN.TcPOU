@@ -10,7 +10,7 @@ END_VAR	]]></Declaration>
       <ST><![CDATA[CASE gvl.Step OF
 
     0: (* Start at home *)
-        gvl.sStatus := 'leaving home, get in the car.';
+        gvl.sStatus := 'leaving home, get in the car, driving to station';
         gvl.bStartDrive := TRUE;
         gvl.tDriveHomeToStation(IN := gvl.bStartDrive);
 
