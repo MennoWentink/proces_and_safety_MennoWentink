@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="treinrit" Id="{1113fe9e-cd66-49f9-a801-011964240413}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK treinrit
+VAR_INPUT
+    Start : BOOL;
+    TravelTime : TIME;
+END_VAR
+
+VAR_OUTPUT
+    Arrived : BOOL := FALSE;
+END_VAR
+
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Start AND NOT gvl.InternalStart THEN
+    gvl.InternalStart := TRUE;
+    Arrived := FALSE;
+    gvl.Timer(IN := TRUE, PT := TravelTime);
+END_IF;
+
+gvl.Timer(IN := gvl.Timer.IN, PT := TravelTime);
+
+
+IF gvl.Timer.Q THEN
+    Arrived := TRUE;
+    gvl.Timer(IN := FALSE);
+    gvl.InternalStart := FALSE;
+END_IF;
+]]></ST>
+    </Implementation>
+    <LineIds Name="treinrit">
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="34" Count="5" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="45" Count="1" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

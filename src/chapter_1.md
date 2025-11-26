@@ -1,7 +1,7 @@
 # Chapter 1
 
 ```plantuml
-@startuml flowchart going to school
+@startuml state diagram going to school
 
 start
 :put on my shoes and jacket and grap my car keys;
@@ -17,5 +17,8 @@ start
 :walk with the coffee towards the correct classroom; 
 stop
 
+to do:
+One Sequence diagram depicting the communication between the tasks
+One Sequence diagram showing the calling of the function by the task.
 @enduml
 ```
