@@ -36,38 +36,41 @@ stop
 
 ```plantuml
 @startuml
-title State Machine: traveling to school
-hide empty description
-[*] --> STATE_traveling_from_home_to_trainstation
-state STATE_STUDYING {
- STATE_STUDYING : // Student = working //
- STATE_STUDYING : TimerStudy(IN := TRUE);
-}
- 
-' koffie = Time over OR Tired
-STATE_STUDYING --> STATE_ORDERING : [TimerStudy.Q OR bTired]
- 
-state STATE_ORDERING {
-   ' Action: Write to GVL
-   STATE_ORDERING : GVL.bRequestCoffee := TRUE;
-}
- 
-STATE_ORDERING --> STATE_WAITING : [Direct]
- 
-state STATE_WAITING {
-   STATE_WAITING : // wacht op machine //
-   STATE_WAITING : // nothing //
-}
- 
-'Wait until GVL variable becomes TRUE
-STATE_WAITING --> STATE_DRINKING : [GVL.bCoffeeReady = TRUE]
- 
-state STATE_DRINKING {
-   ' Als koffie -> reset request
-   STATE_DRINKING : GVL.bRequestCoffee := FALSE;
-   STATE_DRINKING : bEnjoying := TRUE;
-}
- 
-STATE_DRINKING --> STATE_STUDYING : [bCupEmpty = TRUE]
+title Travel from Home to School
+
+actor PLC
+participant MAIN
+participant GVL
+participant TrainFB as FB_TrainAtoB
+
+PLC -> MAIN: PLC startup
+MAIN -> GVL: Step = 0
+
+' Auto part
+MAIN -> GVL: StartDrive = true
+MAIN -> MAIN: Drive timer running
+MAIN -> GVL: StartDrive = false
+MAIN -> GVL: Step = 1
+
+' Walk to station
+MAIN -> GVL: StartWalk1 = true
+MAIN -> MAIN: Walk1 timer running
+MAIN -> GVL: StartWalk1 = false
+MAIN -> GVL: Step = 2
+
+' Train ride
+MAIN -> TrainFB: Start = true
+TrainFB -> TrainFB: Train timer running
+TrainFB -> MAIN: Arrived = true
+MAIN -> GVL: Step = 3
+
+' Walk to school
+MAIN -> GVL: StartWalk2 = true
+MAIN -> MAIN: Walk2 timer running
+MAIN -> GVL: StartWalk2 = false
+MAIN -> GVL: Step = 4
+
+MAIN -> GVL: Status = "Arrived at school"
+
 @enduml
 ```
