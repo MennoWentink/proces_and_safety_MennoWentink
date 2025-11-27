@@ -1,6 +1,7 @@
 # Chapter 1
 
-In this assignment I simulate my journey going to school
+In this assignment I simulate my journey going to school from home.
+below is the flowchart from the complete program
 
 ```plantuml
 @startuml state diagram going to school
@@ -14,13 +15,10 @@ start
 :arrived at school;
 stop
 
-to do:
-One Sequence diagram depicting the communication between the tasks
-One Sequence diagram showing the calling of the function by the task.
 @enduml
 ```
 
-The train ride is programmed in a function this will be called from the main program, but needed a different state diagram.
+The flowchart for the train ride is seperate, because this is a seperate function.
 
 ```plantuml
 @startuml state diagram train towards enschede
@@ -34,6 +32,31 @@ stop
 @enduml
 ```
 
+The train ride is programmed in a function this will be called from the main program.
+The diagram below shows the calling of the program and the function.
+
+```plantuml
+@startuml
+title PLC Task Calling MAIN and Function Block
+
+actor Task as "PLC Task"
+participant MAIN as "MAIN Program"
+participant FB_Train as "Train Function Block"
+
+Task -> MAIN: Cyclic call (every PLC cycle)
+
+MAIN -> MAIN: Execute Step logic\n(timers, states)
+MAIN -> FB_Train: TrainFB(Start, TravelTime)
+
+FB_Train -> FB_Train: TON timer logic
+FB_Train --> MAIN: Arrived status returned
+
+MAIN -> MAIN: Update Step based on Arrived
+
+@enduml
+```
+Below is the schematic that explains the communication between the Global Variable List, the main program and the function block.
+it also shows the flow of information within the program.
 ```plantuml
 @startuml
 title Travel from Home to School
