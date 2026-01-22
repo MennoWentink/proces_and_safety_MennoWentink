@@ -3,11 +3,6 @@
   <GVL Name="GVL" Id="{82520393-6125-4684-a7fb-71ff98d41678}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-    //Timers
-    tDriveHomeToStation : TON := (PT := T#15S);   //car ride
-    tWalkHomeToStation : TON := (PT := T#10S);    //walking
-    tWalkStationToSchool : TON := (PT := T#8S);   // walking
-	Timer : TON;								  //trainride
 
     //starting signals
     bStartDrive : BOOL := FALSE;
@@ -15,12 +10,16 @@ VAR_GLOBAL
     bStartTrain : BOOL := FALSE;
     bStartWalk2 : BOOL := FALSE;
     InternalStart : BOOL;
+	bArrived: BOOL := FALSE;
+	
 	
     //State machine
     Step : INT := 0;
+	train : INT := 0;
 
-    //Info-output
+    //Info
     sStatus : STRING;
+	TravelTime : TIME := T#12S; //treinrit tijd
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

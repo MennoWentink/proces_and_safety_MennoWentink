@@ -4,8 +4,7 @@ In this assignment I simulate my journey going to school from home.
 below is the flowchart from the complete program
 
 ```plantuml
-@startuml state diagram going to school
-
+@startuml
 start
 :leave home and get in my car and drive to train station;
 :parked the car. Walking to the station;
@@ -18,11 +17,13 @@ stop
 @enduml
 ```
 
-The flowchart for the train ride is seperate, because this is a seperate function.
+for the first car ride from my home to the train station, i have opted to use a function block. this will get called and simulate the car ride from my home to the train station.
+
+
+The flowchart for the train ride is seperate, because this is a seperate program.
 
 ```plantuml
-@startuml state diagram train towards enschede
-
+@startuml
 start
 :op het station?;
 :train leaves station;
@@ -32,7 +33,9 @@ stop
 @enduml
 ```
 
-The train ride is programmed in a function this will be called from the main program.
+The train ride is programmed in a different program compared to the main program and is always running in the back until it reads the message from the Global Variable List that it has to do his part. at that point it will complete it's own case structure and communicate it back by usting the Global Variable List
+
+
 The diagram below shows the calling of the program and the function.
 
 ```plantuml
@@ -41,9 +44,9 @@ title PLC Task Calling MAIN and Function Block
 
 actor Task as "PLC Task"
 participant MAIN as "MAIN Program"
-participant FB_Train as "Train Function Block"
+participant FB_Train as "Train program"
 
-Task -> MAIN: Cyclic call (every PLC cycle)
+Task -> MAIN: Cyclic call
 
 MAIN -> MAIN: Execute Step logic\n(timers, states)
 MAIN -> FB_Train: TrainFB(Start, TravelTime)
@@ -57,6 +60,7 @@ MAIN -> MAIN: Update Step based on Arrived
 ```
 Below is the schematic that explains the communication between the Global Variable List, the main program and the function block.
 it also shows the flow of information within the program.
+
 ```plantuml
 @startuml
 title Travel from Home to School

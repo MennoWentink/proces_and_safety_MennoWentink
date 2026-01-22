@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="treinrit_program" Id="{6f2205d2-7d14-458c-8068-19fadb977cd2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM treinrit_program
+VAR
+	Start: BOOL;
+	
+	 //Timers
+	Timer : TON := (PT := gvl.TravelTime);	//train timer
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE gvl.train OF
+
+0:
+IF gvl.bStartTrain AND NOT gvl.InternalStart THEN
+	gvl.train := 5;
+END_IF;
+
+5:
+
+  	gvl.InternalStart := TRUE;
+    gvl.bArrived := FALSE;
+    Timer(in := gvl.bStarttrain);
+	
+IF Timer.Q THEN
+    gvl.bArrived := TRUE;
+    Timer(IN := FALSE);
+    gvl.InternalStart := FALSE;
+END_IF;
+
+END_CASE;]]></ST>
+    </Implementation>
+    <LineIds Name="treinrit_program">
+      <LineId Id="25" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="9" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="32" Count="2" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="15" Count="3" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="28" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

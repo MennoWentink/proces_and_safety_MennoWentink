@@ -3,8 +3,14 @@
   <POU Name="MAIN" Id="{7724f42e-4414-46f2-83ac-ecbdc8010cf1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	//Train function
-    Train : treinrit;
+     (*Timers*)
+    tDriveHomeToStation : TON := (PT := T#15S);   //car ride
+    tWalkHomeToStation : TON := (PT := T#10S);    //walking
+    tWalkStationToSchool : TON := (PT := T#8S);   // walking
+	
+	    (* car FB *)
+    car : Carride;
+	
 END_VAR	]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE gvl.Step OF
@@ -12,11 +18,12 @@ END_VAR	]]></Declaration>
     0: (* Start at home *)
         gvl.sStatus := 'leaving home, get in the car, driving to station';
         gvl.bStartDrive := TRUE;
-        gvl.tDriveHomeToStation(IN := gvl.bStartDrive);
+        //tDriveHomeToStation(IN := gvl.bStartDrive);
+		car(bStart := gvl.bStartDrive, TravelTime := T#12S);
 
-        IF gvl.tDriveHomeToStation.Q THEN
+        IF car.bcararrived THEN
             gvl.bStartDrive := FALSE;
-            gvl.tDriveHomeToStation(IN := FALSE);
+            tDriveHomeToStation(IN := FALSE);
             gvl.Step := 5;
         END_IF;
 
@@ -24,11 +31,11 @@ END_VAR	]]></Declaration>
     5: (* Walking from car to train*)
         gvl.sStatus := 'parked the car. Walking to the station.';
         gvl.bStartWalk1 := TRUE;
-        gvl.tWalkHomeToStation(IN := gvl.bStartWalk1);
+        tWalkHomeToStation(IN := gvl.bStartWalk1);
 
-        IF gvl.tWalkHomeToStation.Q THEN
+        IF tWalkHomeToStation.Q THEN
             gvl.bStartWalk1 := FALSE;
-            gvl.tWalkHomeToStation(IN := FALSE);
+            tWalkHomeToStation(IN := FALSE);
             gvl.Step := 10;
         END_IF;
 
@@ -36,9 +43,8 @@ END_VAR	]]></Declaration>
     10: (* Start train*)
         gvl.sStatus := 'Aarrived at the station. Train leaves.';
         gvl.bStartTrain := TRUE;
-        Train(Start := gvl.bStartTrain, TravelTime := T#12S);
 
-        IF Train.Arrived THEN
+        IF gvl.barrived THEN
             gvl.bStartTrain := FALSE;
             gvl.Step := 20;
         END_IF;
@@ -47,10 +53,10 @@ END_VAR	]]></Declaration>
     20: (* Walking from train to school *)
         gvl.sStatus := 'Train arrived. Walking to school.';
         gvl.bStartWalk2 := TRUE;
-        gvl.tWalkStationToSchool(IN := gvl.bStartWalk2);
+        tWalkStationToSchool(IN := gvl.bStartWalk2);
 
-        IF gvl.tWalkStationToSchool.Q THEN
-            gvl.tWalkStationToSchool(IN := FALSE);
+        IF tWalkStationToSchool.Q THEN
+            tWalkStationToSchool(IN := FALSE);
             gvl.bStartWalk2 := FALSE;
             gvl.Step := 30;
         END_IF;
@@ -67,7 +73,10 @@ END_CASE;
 	]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="146" Count="54" />
+      <LineId Id="146" Count="5" />
+      <LineId Id="212" Count="0" />
+      <LineId Id="152" Count="22" />
+      <LineId Id="176" Count="24" />
       <LineId Id="140" Count="0" />
       <LineId Id="30" Count="0" />
       <LineId Id="8" Count="0" />

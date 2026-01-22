@@ -28,7 +28,10 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\treinrit.TcPOU">
+    <Compile Include="POUs\carride.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\treinrit_program.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
