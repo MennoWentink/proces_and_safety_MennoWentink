@@ -2,7 +2,7 @@
 
 In this assignment I simulate my journey going to school from home. This is an assignment for proces and safety.
 
-This assignment must contain:
+The assignment must contain:
 
     2 tasks running independetly(main and train program)
 
@@ -14,12 +14,12 @@ For the documentation it was instructed to show:
 
     1 state diagram for each task
 
-    1 sequence diagram for showing the communication within the program
+    1 diagram for showing the communication within the program
 
     1 sequence diagram for showing the calling of the function
 
 
-below is the flowchart for the complete program this gives an idee for the reader how my journey to school is.
+below is the flowchart for the complete program this gives an idea for the reader how my journey to school is.
 
 ![flowchart](https://kroki.io/plantuml/svg/eNpdj0sOwzAIBfc-BSfoAdJNbtGtUUCxFdtYmFbq7es4_SjdwXvDSHjva8Ji95zc3Ax1TGNwU2J8MATJDFgIVjaIBfITFtSRkMYOmIAp9qafWZRydVNF3ZjAAu_sBW6YtljWgfbsB6LuCgK0v-IwaiT-Lm_2ZGtLEEln0SdrJtW5mQvtP3nvX1hOU7Y=)
 
