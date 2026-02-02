@@ -25,6 +25,7 @@ below is the flowchart for the complete program this gives an overview for the r
 ```plantuml
 @startuml
 
+title flowchart: going to school from home
 start
 :leave home and get in my car and drive to train station;
 :parked the car. Walking to the station;
