@@ -3,3 +3,6 @@ authors = ["Menno"]
 language = "nl"
 src = "src"
 title = "Proces and safety"
+
+[preprocessor.plantuml]
+plantuml-cmd="http://localhost:8080"    
